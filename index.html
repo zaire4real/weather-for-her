@@ -119,6 +119,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
       min-height: 42px;
       margin-bottom: 38px;
     }
@@ -153,6 +154,50 @@
       font-size: 12px;
     }
 
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .language-switcher {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--glass);
+      box-shadow: 0 8px 24px rgba(55, 65, 100, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .language-button {
+      min-width: 36px;
+      height: 28px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 9px;
+      color: var(--quiet);
+      background: transparent;
+      font-size: 11px;
+      font-weight: 680;
+      cursor: pointer;
+      transition: color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    .language-button:hover { color: var(--ink); }
+
+    .language-button.is-active {
+      color: var(--ink);
+      background: var(--glass-strong);
+      box-shadow: 0 3px 10px rgba(55, 65, 100, 0.1);
+    }
+
+    .language-button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
     .intro {
       display: grid;
       min-height: calc(100svh - 135px);
@@ -180,6 +225,11 @@
       font-weight: 720;
       letter-spacing: -0.065em;
       line-height: 0.98;
+    }
+
+    html[lang="en"] h1 {
+      font-size: clamp(44px, 10vw, 78px);
+      letter-spacing: -0.055em;
     }
 
     .subtitle {
@@ -490,6 +540,7 @@
       .page-shell { padding-right: 14px; padding-left: 14px; }
       .topbar { margin-bottom: 16px; }
       .privacy-note span { display: none; }
+      .top-actions { gap: 8px; }
       .intro-inner { padding-bottom: 16vh; }
       .weather-hero { grid-template-columns: 1fr; }
       .main-card { min-height: 420px; border-radius: 30px; }
@@ -503,6 +554,10 @@
     }
 
     @media (max-width: 390px) {
+      .brand { gap: 7px; font-size: 11px; }
+      .brand-mark { width: 30px; height: 30px; }
+      .privacy-note { display: none; }
+      .language-button { min-width: 33px; padding: 0 6px; }
       .temperature { font-size: 88px; }
       .weather-symbol { width: 68px; height: 68px; border-radius: 22px; font-size: 36px; }
       .metric { min-height: 124px; padding: 20px 16px; }
@@ -518,24 +573,31 @@
 <body>
   <main class="page-shell">
     <header class="topbar">
-      <div class="brand" aria-label="妳那邊的天氣">
+      <div class="brand" id="brand" aria-label="妳那邊的天氣">
         <span class="brand-mark" aria-hidden="true">♡</span>
         <span>WEATHER FOR HER</span>
       </div>
-      <div class="privacy-note" title="位置只用於查詢天氣，不會儲存">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 22s7-3.5 7-10V5l-7-3-7 3v7c0 6.5 7 10 7 10Z" stroke="currentColor" stroke-width="1.8"/>
-          <path d="m9.5 12 1.7 1.7 3.5-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>不會儲存妳的位置</span>
+      <div class="top-actions">
+        <div class="privacy-note" id="privacyNote" title="位置只用於查詢天氣，不會儲存">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 22s7-3.5 7-10V5l-7-3-7 3v7c0 6.5 7 10 7 10Z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="m9.5 12 1.7 1.7 3.5-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="privacyText">不會儲存妳的位置</span>
+        </div>
+        <div class="language-switcher" id="languageSwitcher" role="group" aria-label="選擇語言">
+          <button class="language-button" type="button" data-language="zh-TW" aria-pressed="true">繁</button>
+          <button class="language-button" type="button" data-language="zh-CN" aria-pressed="false">简</button>
+          <button class="language-button" type="button" data-language="en" aria-pressed="false">EN</button>
+        </div>
       </div>
     </header>
 
     <section class="intro" id="intro" aria-labelledby="page-title">
       <div class="intro-inner">
-        <p class="eyebrow">Just for you ♡</p>
+        <p class="eyebrow" id="eyebrow">Just for you ♡</p>
         <h1 id="page-title">妳那邊的天氣</h1>
-        <p class="subtitle">不管妳在哪，我都想知道妳那裡冷不冷。</p>
+        <p class="subtitle" id="subtitle">不管妳在哪，我都想知道妳那裡冷不冷。</p>
 
         <button class="locate-button" id="locateButton" type="button">
           <svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -544,7 +606,7 @@
           </svg>
           <span>查看我現在的天氣</span>
         </button>
-        <p class="consent-copy">點一下才會詢問定位權限<br>座標只用來查詢當下的天氣</p>
+        <p class="consent-copy"><span id="consentPrimary">點一下才會詢問定位權限</span><br><span id="consentSecondary">座標只用來查詢當下的天氣</span></p>
         <div class="status" id="status" role="status" aria-live="polite"></div>
       </div>
     </section>
@@ -562,21 +624,21 @@
           <p class="love-note" id="loveNote">「想提醒妳天氣，也想提醒妳：今天要好好照顧自己。」</p>
         </article>
 
-        <article class="glass-card metrics-card" aria-label="目前天氣詳細資料">
+        <article class="glass-card metrics-card" id="metricsCard" aria-label="目前天氣詳細資料">
           <div class="metric">
-            <span class="metric-label">體感溫度</span>
+            <span class="metric-label" id="feelsLikeLabel">體感溫度</span>
             <span class="metric-value" id="feelsLike">--°</span>
           </div>
           <div class="metric">
-            <span class="metric-label">濕度</span>
+            <span class="metric-label" id="humidityLabel">濕度</span>
             <span class="metric-value" id="humidity">--%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">降雨機率</span>
+            <span class="metric-label" id="rainChanceLabel">降雨機率</span>
             <span class="metric-value" id="rainChance">--%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">風速</span>
+            <span class="metric-label" id="windSpeedLabel">風速</span>
             <span class="metric-value" id="windSpeed">-- <small>km/h</small></span>
           </div>
         </article>
@@ -584,7 +646,7 @@
 
       <article class="glass-card forecast-card">
         <div class="section-heading">
-          <h2>未來 7 天</h2>
+          <h2 id="forecastTitle">未來 7 天</h2>
           <span class="updated-at" id="updatedAt"></span>
         </div>
         <div class="forecast-list" id="forecastList"></div>
@@ -608,57 +670,188 @@
       locateButton: document.getElementById('locateButton'),
       refreshButton: document.getElementById('refreshButton'),
       status: document.getElementById('status'),
+      brand: document.getElementById('brand'),
+      privacyNote: document.getElementById('privacyNote'),
+      privacyText: document.getElementById('privacyText'),
+      languageSwitcher: document.getElementById('languageSwitcher'),
+      languageButtons: [...document.querySelectorAll('[data-language]')],
+      eyebrow: document.getElementById('eyebrow'),
+      pageTitle: document.getElementById('page-title'),
+      subtitle: document.getElementById('subtitle'),
+      consentPrimary: document.getElementById('consentPrimary'),
+      consentSecondary: document.getElementById('consentSecondary'),
       locationName: document.getElementById('locationName'),
       currentTemp: document.getElementById('currentTemp'),
       weatherSymbol: document.getElementById('weatherSymbol'),
       condition: document.getElementById('condition'),
       todayRange: document.getElementById('todayRange'),
+      metricsCard: document.getElementById('metricsCard'),
+      feelsLikeLabel: document.getElementById('feelsLikeLabel'),
+      humidityLabel: document.getElementById('humidityLabel'),
+      rainChanceLabel: document.getElementById('rainChanceLabel'),
+      windSpeedLabel: document.getElementById('windSpeedLabel'),
       feelsLike: document.getElementById('feelsLike'),
       humidity: document.getElementById('humidity'),
       rainChance: document.getElementById('rainChance'),
       windSpeed: document.getElementById('windSpeed'),
       loveNote: document.getElementById('loveNote'),
+      forecastTitle: document.getElementById('forecastTitle'),
       forecastList: document.getElementById('forecastList'),
       updatedAt: document.getElementById('updatedAt')
     };
 
-    const WEATHER = {
-      0: { label: '晴朗', icon: '☀️', scene: 'clear-day' },
-      1: { label: '大致晴朗', icon: '🌤️', scene: 'clear-day' },
-      2: { label: '多雲時晴', icon: '⛅', scene: 'cloud' },
-      3: { label: '陰天', icon: '☁️', scene: 'cloud' },
-      45: { label: '有霧', icon: '🌫️', scene: 'cloud' },
-      48: { label: '霧淞', icon: '🌫️', scene: 'cloud' },
-      51: { label: '微微細雨', icon: '🌦️', scene: 'rain' },
-      53: { label: '細雨', icon: '🌦️', scene: 'rain' },
-      55: { label: '較強細雨', icon: '🌧️', scene: 'rain' },
-      56: { label: '凍雨', icon: '🌧️', scene: 'rain' },
-      57: { label: '較強凍雨', icon: '🌧️', scene: 'rain' },
-      61: { label: '小雨', icon: '🌦️', scene: 'rain' },
-      63: { label: '中雨', icon: '🌧️', scene: 'rain' },
-      65: { label: '大雨', icon: '🌧️', scene: 'rain' },
-      66: { label: '小凍雨', icon: '🌧️', scene: 'rain' },
-      67: { label: '凍雨', icon: '🌧️', scene: 'rain' },
-      71: { label: '小雪', icon: '🌨️', scene: 'cloud' },
-      73: { label: '下雪', icon: '🌨️', scene: 'cloud' },
-      75: { label: '大雪', icon: '❄️', scene: 'cloud' },
-      77: { label: '雪粒', icon: '❄️', scene: 'cloud' },
-      80: { label: '短暫陣雨', icon: '🌦️', scene: 'rain' },
-      81: { label: '陣雨', icon: '🌧️', scene: 'rain' },
-      82: { label: '強陣雨', icon: '⛈️', scene: 'rain' },
-      85: { label: '陣雪', icon: '🌨️', scene: 'cloud' },
-      86: { label: '強陣雪', icon: '🌨️', scene: 'cloud' },
-      95: { label: '雷雨', icon: '⛈️', scene: 'rain' },
-      96: { label: '雷雨伴隨冰雹', icon: '⛈️', scene: 'rain' },
-      99: { label: '強雷雨伴隨冰雹', icon: '⛈️', scene: 'rain' }
+    const TRANSLATIONS = {
+      'zh-TW': {
+        title: '妳那邊的天氣', privacy: '不會儲存妳的位置', privacyTitle: '位置只用於查詢天氣，不會儲存', languageLabel: '選擇語言',
+        eyebrow: 'Just for you ♡', subtitle: '不管妳在哪，我都想知道妳那裡冷不冷。', locate: '查看我現在的天氣', retry: '再試一次', locating: '正在找妳的位置⋯⋯',
+        consentPrimary: '點一下才會詢問定位權限', consentSecondary: '座標只用來查詢當下的天氣', weatherViewLabel: '妳現在的天氣', locationName: '妳現在的位置',
+        lookingSky: '正在看看天空⋯⋯', todayRange: '今日 {low}° — {high}°', feelsLike: '體感溫度', humidity: '濕度', rainChance: '降雨機率', windSpeed: '風速',
+        detailsLabel: '目前天氣詳細資料', forecastTitle: '未來 7 天', refresh: '重新取得我的位置', today: '今天', tomorrow: '明天', updated: '{time} 更新', fallbackSource: ' · 備用資料',
+        secureOnly: '瀏覽器只會在安全的 HTTPS 網頁提供定位。部署到 GitHub Pages 或 Vercel 後，再試一次就可以了。',
+        locationUnavailable: '暫時無法取得妳的位置，請稍後再試一次。', permissionDenied: '妳似乎沒有開放定位權限。可以到瀏覽器的網站設定允許定位，再按一次試試看。',
+        positionUnavailable: '目前找不到妳的位置。請確認手機的定位服務已開啟，再試一次。', positionTimeout: '定位等得有點久。換個網路環境，或稍後再試一次。',
+        unsupported: '這個瀏覽器不支援定位功能，請改用新版 Safari、Chrome 或 Edge 再試一次。', found: '位置找到了，正在看看妳那邊的天空⋯⋯',
+        switchingSource: '主要天氣服務有點忙，正在改用備用資料來源⋯⋯', weatherUnavailable: '位置找到了，但天氣資料暫時沒有回應。請檢查網路後，再按一次試試看。',
+        unknownWeather: '天氣多變', lateNote: '「很晚了。天氣可以明天再看，妳要先好好睡覺。」', rainNote: '「不要嫌我囉嗦，只是怕妳淋雨。出門記得帶傘。」',
+        coldNote: '「妳那邊有點冷。多穿一件，手也要記得放進口袋裡。」', hotNote: '「今天會熱，記得喝水，也不要在太陽底下待太久。」',
+        clearNote: '「今天天氣不錯。希望妳抬頭看見天空時，也會剛好想起我。」', defaultNote: '「想提醒妳天氣，也想提醒妳：今天要好好照顧自己。」'
+      },
+      'zh-CN': {
+        title: '你那边的天气', privacy: '不会储存你的位置', privacyTitle: '位置只用于查询天气，不会储存', languageLabel: '选择语言',
+        eyebrow: 'Just for you ♡', subtitle: '不管你在哪，我都想知道你那里冷不冷。', locate: '查看我现在的天气', retry: '再试一次', locating: '正在找你的位置⋯⋯',
+        consentPrimary: '点一下才会询问定位权限', consentSecondary: '坐标只用于查询当下的天气', weatherViewLabel: '你现在的天气', locationName: '你现在的位置',
+        lookingSky: '正在看看天空⋯⋯', todayRange: '今日 {low}° — {high}°', feelsLike: '体感温度', humidity: '湿度', rainChance: '降雨概率', windSpeed: '风速',
+        detailsLabel: '当前天气详细信息', forecastTitle: '未来 7 天', refresh: '重新获取我的位置', today: '今天', tomorrow: '明天', updated: '{time} 更新', fallbackSource: ' · 备用数据',
+        secureOnly: '浏览器只会在安全的 HTTPS 网页提供定位。部署到 GitHub Pages 或 Vercel 后，再试一次就可以了。',
+        locationUnavailable: '暂时无法获取你的位置，请稍后再试一次。', permissionDenied: '你似乎没有开放定位权限。可以到浏览器的网站设置允许定位，再按一次试试看。',
+        positionUnavailable: '目前找不到你的位置。请确认手机的定位服务已开启，再试一次。', positionTimeout: '定位等得有点久。换个网络环境，或稍后再试一次。',
+        unsupported: '这个浏览器不支持定位功能，请改用新版 Safari、Chrome 或 Edge 再试一次。', found: '位置找到了，正在看看你那边的天空⋯⋯',
+        switchingSource: '主要天气服务有点忙，正在改用备用数据来源⋯⋯', weatherUnavailable: '位置找到了，但天气数据暂时没有回应。请检查网络后，再按一次试试看。',
+        unknownWeather: '天气多变', lateNote: '「很晚了。天气可以明天再看，你要先好好睡觉。」', rainNote: '「不要嫌我啰嗦，只是怕你淋雨。出门记得带伞。」',
+        coldNote: '「你那里有点冷。多穿一件，手也要记得放进口袋里。」', hotNote: '「今天会热，记得喝水，也不要在太阳底下待太久。」',
+        clearNote: '「今天天气不错。希望你抬头看见天空时，也会刚好想起我。」', defaultNote: '「想提醒你天气，也想提醒你：今天要好好照顾自己。」'
+      },
+      en: {
+        title: 'The Weather Where You Are', privacy: 'Your location is never saved', privacyTitle: 'Your location is only used to check the weather and is never saved', languageLabel: 'Choose language',
+        eyebrow: 'Just for you ♡', subtitle: 'Wherever you are, I always want to know if you’re warm enough.', locate: 'Check the weather here', retry: 'Try again', locating: 'Finding your location…',
+        consentPrimary: 'We’ll ask for location only after you tap', consentSecondary: 'Your coordinates are used only for this weather check', weatherViewLabel: 'Your current weather', locationName: 'Your current location',
+        lookingSky: 'Looking at the sky…', todayRange: 'Today {low}° — {high}°', feelsLike: 'Feels like', humidity: 'Humidity', rainChance: 'Chance of rain', windSpeed: 'Wind',
+        detailsLabel: 'Current weather details', forecastTitle: 'Next 7 days', refresh: 'Update my location', today: 'Today', tomorrow: 'Tomorrow', updated: 'Updated {time}', fallbackSource: ' · backup data',
+        secureOnly: 'Location is available only on secure HTTPS pages. Open the GitHub Pages or Vercel version and try again.',
+        locationUnavailable: 'We can’t get your location right now. Please try again in a moment.', permissionDenied: 'Location permission is turned off. Allow it in your browser’s site settings, then try again.',
+        positionUnavailable: 'We can’t find your location. Make sure location services are on, then try again.', positionTimeout: 'Location is taking a little too long. Try another network or try again shortly.',
+        unsupported: 'This browser doesn’t support location. Please try a recent version of Safari, Chrome, or Edge.', found: 'Found you—checking the sky where you are…',
+        switchingSource: 'The main weather service is busy. Switching to a backup source…', weatherUnavailable: 'We found your location, but the weather services didn’t respond. Check your connection and try again.',
+        unknownWeather: 'Changeable weather', lateNote: '“It’s late. The weather can wait until tomorrow—you should get some rest.”', rainNote: '“Don’t call me fussy; I just don’t want you getting caught in the rain. Bring an umbrella.”',
+        coldNote: '“It’s a little cold where you are. Wear one more layer and keep your hands warm.”', hotNote: '“It’ll be hot today. Drink some water and don’t stay in the sun too long.”',
+        clearNote: '“The weather looks lovely. I hope when you look up at the sky, you think of me too.”', defaultNote: '“I wanted to remind you about the weather—and to take good care of yourself today.”'
+      }
     };
 
+    const WEATHER_LABELS = {
+      'zh-TW': { 0: '晴朗', 1: '大致晴朗', 2: '多雲時晴', 3: '陰天', 45: '有霧', 48: '霧淞', 51: '微微細雨', 53: '細雨', 55: '較強細雨', 56: '凍雨', 57: '較強凍雨', 61: '小雨', 63: '中雨', 65: '大雨', 66: '小凍雨', 67: '凍雨', 71: '小雪', 73: '下雪', 75: '大雪', 77: '雪粒', 80: '短暫陣雨', 81: '陣雨', 82: '強陣雨', 85: '陣雪', 86: '強陣雪', 95: '雷雨', 96: '雷雨伴隨冰雹', 99: '強雷雨伴隨冰雹' },
+      'zh-CN': { 0: '晴朗', 1: '大致晴朗', 2: '多云转晴', 3: '阴天', 45: '有雾', 48: '雾凇', 51: '轻微细雨', 53: '细雨', 55: '较强细雨', 56: '冻雨', 57: '较强冻雨', 61: '小雨', 63: '中雨', 65: '大雨', 66: '小冻雨', 67: '冻雨', 71: '小雪', 73: '下雪', 75: '大雪', 77: '雪粒', 80: '短时阵雨', 81: '阵雨', 82: '强阵雨', 85: '阵雪', 86: '强阵雪', 95: '雷雨', 96: '雷雨伴随冰雹', 99: '强雷雨伴随冰雹' },
+      en: { 0: 'Clear', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast', 45: 'Foggy', 48: 'Rime fog', 51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle', 56: 'Freezing drizzle', 57: 'Heavy freezing drizzle', 61: 'Light rain', 63: 'Rain', 65: 'Heavy rain', 66: 'Light freezing rain', 67: 'Freezing rain', 71: 'Light snow', 73: 'Snow', 75: 'Heavy snow', 77: 'Snow grains', 80: 'Light showers', 81: 'Showers', 82: 'Heavy showers', 85: 'Snow showers', 86: 'Heavy snow showers', 95: 'Thunderstorm', 96: 'Thunderstorm with hail', 99: 'Heavy thunderstorm with hail' }
+    };
+
+    const WEATHER = {
+      0: { icon: '☀️', scene: 'clear-day' }, 1: { icon: '🌤️', scene: 'clear-day' }, 2: { icon: '⛅', scene: 'cloud' }, 3: { icon: '☁️', scene: 'cloud' },
+      45: { icon: '🌫️', scene: 'cloud' }, 48: { icon: '🌫️', scene: 'cloud' }, 51: { icon: '🌦️', scene: 'rain' }, 53: { icon: '🌦️', scene: 'rain' },
+      55: { icon: '🌧️', scene: 'rain' }, 56: { icon: '🌧️', scene: 'rain' }, 57: { icon: '🌧️', scene: 'rain' }, 61: { icon: '🌦️', scene: 'rain' },
+      63: { icon: '🌧️', scene: 'rain' }, 65: { icon: '🌧️', scene: 'rain' }, 66: { icon: '🌧️', scene: 'rain' }, 67: { icon: '🌧️', scene: 'rain' },
+      71: { icon: '🌨️', scene: 'cloud' }, 73: { icon: '🌨️', scene: 'cloud' }, 75: { icon: '❄️', scene: 'cloud' }, 77: { icon: '❄️', scene: 'cloud' },
+      80: { icon: '🌦️', scene: 'rain' }, 81: { icon: '🌧️', scene: 'rain' }, 82: { icon: '⛈️', scene: 'rain' }, 85: { icon: '🌨️', scene: 'cloud' },
+      86: { icon: '🌨️', scene: 'cloud' }, 95: { icon: '⛈️', scene: 'rain' }, 96: { icon: '⛈️', scene: 'rain' }, 99: { icon: '⛈️', scene: 'rain' }
+    };
+
+    let currentLanguage = 'zh-TW';
+    let loadingLocation = false;
+    let hasAttemptedLocation = false;
+    let activeStatus = { key: '', type: '', variables: {} };
+    let lastWeather = null;
+
+    function t(key, variables = {}) {
+      const template = TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS['zh-TW'][key] ?? key;
+      return String(template).replace(/\{(\w+)\}/g, (_, name) => variables[name] ?? '');
+    }
+
     function weatherInfo(code) {
-      return WEATHER[code] || { label: '天氣多變', icon: '🌤️', scene: 'cloud' };
+      const visual = WEATHER[code] || { icon: '🌤️', scene: 'cloud' };
+      return { ...visual, label: WEATHER_LABELS[currentLanguage]?.[code] || t('unknownWeather') };
     }
 
     function rounded(value, fallback = '--') {
       return Number.isFinite(value) ? Math.round(value) : fallback;
+    }
+
+    function detectInitialLanguage() {
+      try {
+        const saved = localStorage.getItem('weather-for-her-language');
+        if (['zh-TW', 'zh-CN', 'en'].includes(saved)) return saved;
+      } catch (_) {}
+      const browserLanguage = navigator.language || 'zh-TW';
+      if (browserLanguage.toLowerCase().startsWith('zh')) {
+        return /tw|hk|mo|hant/i.test(browserLanguage) ? 'zh-TW' : 'zh-CN';
+      }
+      return 'en';
+    }
+
+    function locateButtonMarkup(label, isLoading = false) {
+      if (isLoading) return `<span class="loading-spinner" aria-hidden="true"></span><span>${label}</span>`;
+      return `<svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg><span>${label}</span>`;
+    }
+
+    function updateLocateButton() {
+      els.locateButton.disabled = loadingLocation;
+      const label = loadingLocation ? t('locating') : t(hasAttemptedLocation ? 'retry' : 'locate');
+      els.locateButton.innerHTML = locateButtonMarkup(label, loadingLocation);
+    }
+
+    function applyLanguage() {
+      document.documentElement.lang = currentLanguage === 'zh-TW' ? 'zh-Hant' : currentLanguage === 'zh-CN' ? 'zh-Hans' : 'en';
+      document.title = t('title');
+      document.querySelector('meta[name="description"]')?.setAttribute('content', t('subtitle'));
+      els.brand.setAttribute('aria-label', t('title'));
+      els.privacyText.textContent = t('privacy');
+      els.privacyNote.title = t('privacyTitle');
+      els.languageSwitcher.setAttribute('aria-label', t('languageLabel'));
+      els.eyebrow.textContent = t('eyebrow');
+      els.pageTitle.textContent = t('title');
+      els.subtitle.textContent = t('subtitle');
+      els.consentPrimary.textContent = t('consentPrimary');
+      els.consentSecondary.textContent = t('consentSecondary');
+      els.weatherView.setAttribute('aria-label', t('weatherViewLabel'));
+      els.metricsCard.setAttribute('aria-label', t('detailsLabel'));
+      els.feelsLikeLabel.textContent = t('feelsLike');
+      els.humidityLabel.textContent = t('humidity');
+      els.rainChanceLabel.textContent = t('rainChance');
+      els.windSpeedLabel.textContent = t('windSpeed');
+      els.forecastTitle.textContent = t('forecastTitle');
+      els.refreshButton.textContent = t('refresh');
+      els.languageButtons.forEach((button) => {
+        const isActive = button.dataset.language === currentLanguage;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+      updateLocateButton();
+      if (activeStatus.key) showStatus(activeStatus.key, activeStatus.type, activeStatus.variables);
+      if (lastWeather) {
+        renderWeather(lastWeather.data, lastWeather.latitude, lastWeather.longitude, false);
+      } else {
+        els.locationName.textContent = t('locationName');
+        els.condition.textContent = t('lookingSky');
+        els.todayRange.textContent = t('todayRange', { low: '--', high: '--' });
+        els.loveNote.textContent = t('defaultNote');
+      }
+    }
+
+    function setLanguage(language, persist = true) {
+      if (!['zh-TW', 'zh-CN', 'en'].includes(language)) return;
+      currentLanguage = language;
+      if (persist) {
+        try { localStorage.setItem('weather-for-her-language', language); } catch (_) {}
+      }
+      applyLanguage();
     }
 
     function setStatus(message = '', type = '') {
@@ -666,22 +859,25 @@
       els.status.className = `status${message ? ' is-visible' : ''}${type ? ` is-${type}` : ''}`;
     }
 
-    function setLoading(isLoading) {
-      els.locateButton.disabled = isLoading;
-      els.locateButton.innerHTML = isLoading
-        ? '<span class="loading-spinner" aria-hidden="true"></span><span>正在找妳的位置⋯⋯</span>'
-        : '<svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg><span>再試一次</span>';
+    function showStatus(key = '', type = '', variables = {}) {
+      activeStatus = { key, type, variables };
+      setStatus(key ? t(key, variables) : '', type);
     }
 
-    function friendlyGeoError(error) {
+    function setLoading(isLoading) {
+      loadingLocation = isLoading;
+      updateLocateButton();
+    }
+
+    function friendlyGeoErrorKey(error) {
       if (!window.isSecureContext && location.protocol !== 'file:') {
-        return '瀏覽器只會在安全的 HTTPS 網頁提供定位。部署到 GitHub Pages 或 Vercel 後，再試一次就可以了。';
+        return 'secureOnly';
       }
-      if (!error) return '暫時無法取得妳的位置，請稍後再試一次。';
-      if (error.code === 1) return '妳似乎沒有開放定位權限。可以到瀏覽器的網站設定允許定位，再按一次試試看。';
-      if (error.code === 2) return '目前找不到妳的位置。請確認手機的定位服務已開啟，再試一次。';
-      if (error.code === 3) return '定位等得有點久。換個網路環境，或稍後再試一次。';
-      return '暫時無法取得妳的位置，請稍後再試一次。';
+      if (!error) return 'locationUnavailable';
+      if (error.code === 1) return 'permissionDenied';
+      if (error.code === 2) return 'positionUnavailable';
+      if (error.code === 3) return 'positionTimeout';
+      return 'locationUnavailable';
     }
 
     function findNearestHourlyIndex(times, currentTime) {
@@ -700,21 +896,22 @@
     }
 
     function dayLabel(dateString, index) {
-      if (index === 0) return '今天';
-      if (index === 1) return '明天';
-      return new Intl.DateTimeFormat('zh-TW', { weekday: 'short' }).format(new Date(`${dateString}T12:00:00`));
+      if (index === 0) return t('today');
+      if (index === 1) return t('tomorrow');
+      const locale = currentLanguage === 'zh-CN' ? 'zh-CN' : currentLanguage === 'en' ? 'en-US' : 'zh-TW';
+      return new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(new Date(`${dateString}T12:00:00`));
     }
 
     function getLoveNote(data, rainChance) {
       const temp = data.current.temperature_2m;
       const code = data.current.weather_code;
       const hour = new Date().getHours();
-      if (hour >= 23 || hour < 5) return '「很晚了。天氣可以明天再看，妳要先好好睡覺。」';
-      if (rainChance >= 50 || (code >= 51 && code <= 99)) return '「不要嫌我囉嗦，只是怕妳淋雨。出門記得帶傘。」';
-      if (temp <= 14) return '「妳那邊有點冷。多穿一件，手也要記得放進口袋裡。」';
-      if (temp >= 31) return '「今天會熱，記得喝水，也不要在太陽底下待太久。」';
-      if (code <= 2) return '「今天天氣不錯。希望妳抬頭看見天空時，也會剛好想起我。」';
-      return '「想提醒妳天氣，也想提醒妳：今天要好好照顧自己。」';
+      if (hour >= 23 || hour < 5) return t('lateNote');
+      if (rainChance >= 50 || (code >= 51 && code <= 99)) return t('rainNote');
+      if (temp <= 14) return t('coldNote');
+      if (temp >= 31) return t('hotNote');
+      if (code <= 2) return t('clearNote');
+      return t('defaultNote');
     }
 
     const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -864,7 +1061,7 @@
         }
       }
 
-      setStatus('主要天氣服務有點忙，正在改用備用資料來源⋯⋯');
+      showStatus('switchingSource');
       try {
         const metParams = new URLSearchParams({ lat: latitude.toFixed(4), lon: longitude.toFixed(4) });
         const payload = await fetchJson(`https://api.met.no/weatherapi/locationforecast/2.0/compact?${metParams}`);
@@ -874,7 +1071,7 @@
       }
     }
 
-    function renderWeather(data, latitude, longitude) {
+    function renderWeather(data, latitude, longitude, shouldScroll = true) {
       const current = data.current;
       const daily = data.daily;
       const info = weatherInfo(current.weather_code);
@@ -882,12 +1079,15 @@
       const rainChance = hourlyIndex >= 0 ? data.hourly.precipitation_probability[hourlyIndex] : daily.precipitation_probability_max[0];
       const isNight = current.is_day === 0;
 
+      lastWeather = { data, latitude, longitude };
+      setLoading(false);
+      showStatus('');
       document.body.dataset.scene = isNight ? 'night' : info.scene;
-      els.locationName.textContent = `妳現在的位置 · ${latitude.toFixed(2)}°, ${longitude.toFixed(2)}°`;
+      els.locationName.textContent = `${t('locationName')} · ${latitude.toFixed(2)}°, ${longitude.toFixed(2)}°`;
       els.currentTemp.textContent = rounded(current.temperature_2m);
       els.weatherSymbol.textContent = isNight && current.weather_code <= 1 ? '🌙' : info.icon;
       els.condition.textContent = info.label;
-      els.todayRange.textContent = `今日 ${rounded(daily.temperature_2m_min[0])}° — ${rounded(daily.temperature_2m_max[0])}°`;
+      els.todayRange.textContent = t('todayRange', { low: rounded(daily.temperature_2m_min[0]), high: rounded(daily.temperature_2m_max[0]) });
       els.feelsLike.textContent = `${rounded(current.apparent_temperature)}°`;
       els.humidity.textContent = `${rounded(current.relative_humidity_2m)}%`;
       els.rainChance.textContent = `${rounded(rainChance, 0)}%`;
@@ -907,37 +1107,39 @@
       }).join('');
 
       const updated = new Date();
-      const sourceNote = data.source === 'met-norway' ? ' · 備用資料' : '';
-      els.updatedAt.textContent = `${updated.getHours().toString().padStart(2, '0')}:${updated.getMinutes().toString().padStart(2, '0')} 更新${sourceNote}`;
+      const time = `${updated.getHours().toString().padStart(2, '0')}:${updated.getMinutes().toString().padStart(2, '0')}`;
+      const sourceNote = data.source === 'met-norway' ? t('fallbackSource') : '';
+      els.updatedAt.textContent = `${t('updated', { time })}${sourceNote}`;
       els.intro.style.display = 'none';
       els.weatherView.classList.add('is-visible');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (shouldScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function requestWeather() {
-      setStatus('');
+      hasAttemptedLocation = true;
+      showStatus('');
       setLoading(true);
 
       if (!('geolocation' in navigator)) {
         setLoading(false);
-        setStatus('這個瀏覽器不支援定位功能，請改用新版 Safari、Chrome 或 Edge 再試一次。', 'error');
+        showStatus('unsupported', 'error');
         return;
       }
 
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
-        setStatus('位置找到了，正在看看妳那邊的天空⋯⋯');
+        showStatus('found');
         try {
           const data = await fetchWeather(latitude, longitude);
           renderWeather(data, latitude, longitude);
         } catch (error) {
           console.error(error);
           setLoading(false);
-          setStatus('位置找到了，但天氣資料暫時沒有回應。請檢查網路後，再按一次試試看。', 'error');
+          showStatus('weatherUnavailable', 'error');
         }
       }, (error) => {
         setLoading(false);
-        setStatus(friendlyGeoError(error), 'error');
+        showStatus(friendlyGeoErrorKey(error), 'error');
       }, {
         enableHighAccuracy: false,
         timeout: 12000,
@@ -951,6 +1153,10 @@
       els.intro.style.display = 'grid';
       requestWeather();
     });
+    els.languageButtons.forEach((button) => {
+      button.addEventListener('click', () => setLanguage(button.dataset.language));
+    });
+    setLanguage(detectInitialLanguage(), false);
   </script>
 </body>
 </html>
