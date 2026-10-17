@@ -16,7 +16,7 @@
 
 ## 技術與隱私
 
-網站是單一 `index.html`，沒有使用外部框架，也不需要 API key。天氣資料來自 [Open-Meteo](https://open-meteo.com/)。位置只會在瀏覽器中用來查詢當下天氣，不會由本網站儲存。
+網站是單一 `index.html`，沒有使用外部框架，也不需要 API key。天氣資料主要來自 [Open-Meteo](https://open-meteo.com/)，服務忙碌時會自動改用 [MET Norway](https://api.met.no/) 的全球預報資料。位置只會在瀏覽器中用來查詢當下天氣，不會由本網站儲存。
 
 ## 本機預覽
 
