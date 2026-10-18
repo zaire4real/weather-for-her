@@ -594,6 +594,121 @@
     .hourly-temp { color: var(--ink); font-size: 18px; font-weight: 680; }
     .hourly-rain { font-size: 10px; }
 
+    .advice-card {
+      margin-bottom: 20px;
+      padding: 26px;
+      border-radius: 32px;
+    }
+
+    .advice-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .advice-kicker {
+      margin: 0 0 7px;
+      color: var(--quiet);
+      font-size: 10px;
+      font-weight: 720;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .advice-title { margin: 0; font-size: 21px; letter-spacing: -.025em; }
+    .advice-subtitle { margin: 7px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    .comfort-control { flex: 0 0 auto; }
+    .comfort-label { display: block; margin: 0 3px 7px; color: var(--quiet); font-size: 10px; text-align: right; }
+
+    .comfort-options {
+      display: flex;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .18);
+    }
+
+    .comfort-button {
+      min-height: 32px;
+      padding: 0 11px;
+      border: 0;
+      border-radius: 10px;
+      color: var(--quiet);
+      background: transparent;
+      font-size: 11px;
+      font-weight: 680;
+      cursor: pointer;
+    }
+
+    .comfort-button.is-active {
+      color: var(--ink);
+      background: rgba(255, 255, 255, .68);
+      box-shadow: 0 4px 12px rgba(64, 76, 108, .09);
+    }
+
+    .outfit-summary {
+      display: grid;
+      grid-template-columns: minmax(180px, .72fr) minmax(0, 1.28fr);
+      gap: 22px;
+      align-items: center;
+      padding: 21px;
+      border: 1px solid rgba(255, 255, 255, .42);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .19);
+    }
+
+    .outfit-headline { margin: 0; font-size: 20px; font-weight: 720; letter-spacing: -.025em; }
+    .outfit-description { margin: 9px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    .outfit-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .outfit-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 8px 10px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .35);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 620;
+    }
+
+    .outfit-icon { font-size: 21px; }
+
+    .reminder-block {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .reminder-title { margin: 0 0 12px; font-size: 13px; font-weight: 720; letter-spacing: .04em; }
+    .reminder-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+
+    .reminder-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      min-height: 54px;
+      padding: 12px 13px;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, .16);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .reminder-icon { flex: 0 0 auto; font-size: 18px; }
+
     .section-heading {
       display: flex;
       align-items: center;
@@ -718,6 +833,20 @@
       .metrics-card::-webkit-scrollbar { display: none; }
       .metric { flex: 0 0 126px; min-height: 98px; padding: 16px; border: 1px solid var(--line); border-radius: 22px !important; background: var(--glass); scroll-snap-align: start; }
       .metric-value { margin-top: 11px; font-size: 25px; }
+      .advice-card { margin-bottom: 12px; padding: 20px 16px 16px; border-radius: 26px; }
+      .advice-top { display: grid; gap: 15px; margin-bottom: 16px; }
+      .advice-title { font-size: 19px; }
+      .comfort-control { width: 100%; }
+      .comfort-label { text-align: left; }
+      .comfort-options { width: 100%; }
+      .comfort-button { flex: 1; }
+      .outfit-summary { grid-template-columns: 1fr; gap: 16px; padding: 17px; border-radius: 21px; }
+      .outfit-headline { font-size: 18px; }
+      .outfit-items { display: flex; margin: 0 -3px; padding: 0 3px 5px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+      .outfit-items::-webkit-scrollbar { display: none; }
+      .outfit-item { flex: 0 0 112px; scroll-snap-align: start; }
+      .reminder-block { margin-top: 17px; padding-top: 17px; }
+      .reminder-list { grid-template-columns: 1fr; }
       .hourly-card { margin-bottom: 12px; padding: 20px 10px 13px; border-radius: 26px; }
       .hourly-item { flex-basis: 76px; min-height: 118px; border-radius: 18px; }
       .forecast-card { border-radius: 26px; padding: 20px 10px 12px; }
@@ -832,6 +961,37 @@
         </article>
       </div>
 
+      <article class="glass-card advice-card" id="adviceCard">
+        <div class="advice-top">
+          <div>
+            <p class="advice-kicker" id="adviceKicker">TODAY'S LITTLE PLAN</p>
+            <h2 class="advice-title" id="adviceTitle">今天這樣穿</h2>
+            <p class="advice-subtitle" id="adviceSubtitle">依照體感溫度、風雨與日夜溫差整理。</p>
+          </div>
+          <div class="comfort-control">
+            <span class="comfort-label" id="comfortLabel">妳平常</span>
+            <div class="comfort-options" id="comfortOptions" role="group" aria-label="體感偏好">
+              <button class="comfort-button" type="button" data-comfort="cold">怕冷</button>
+              <button class="comfort-button is-active" type="button" data-comfort="normal">剛好</button>
+              <button class="comfort-button" type="button" data-comfort="warm">怕熱</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="outfit-summary">
+          <div>
+            <p class="outfit-headline" id="outfitHeadline">舒適分層就好</p>
+            <p class="outfit-description" id="outfitDescription">早晚可以加一件薄外套，熱的時候也方便脫下來。</p>
+          </div>
+          <div class="outfit-items" id="outfitItems" aria-label="穿搭清單"></div>
+        </div>
+
+        <div class="reminder-block">
+          <h3 class="reminder-title" id="reminderTitle">今天的小提醒</h3>
+          <div class="reminder-list" id="reminderList"></div>
+        </div>
+      </article>
+
       <article class="glass-card hourly-card">
         <div class="section-heading">
           <h2 id="hourlyTitle">逐小時天氣</h2>
@@ -912,6 +1072,17 @@
       rainChance: document.getElementById('rainChance'),
       windSpeed: document.getElementById('windSpeed'),
       loveNote: document.getElementById('loveNote'),
+      adviceKicker: document.getElementById('adviceKicker'),
+      adviceTitle: document.getElementById('adviceTitle'),
+      adviceSubtitle: document.getElementById('adviceSubtitle'),
+      comfortLabel: document.getElementById('comfortLabel'),
+      comfortOptions: document.getElementById('comfortOptions'),
+      comfortButtons: [...document.querySelectorAll('[data-comfort]')],
+      outfitHeadline: document.getElementById('outfitHeadline'),
+      outfitDescription: document.getElementById('outfitDescription'),
+      outfitItems: document.getElementById('outfitItems'),
+      reminderTitle: document.getElementById('reminderTitle'),
+      reminderList: document.getElementById('reminderList'),
       hourlyTitle: document.getElementById('hourlyTitle'),
       hourlyList: document.getElementById('hourlyList'),
       forecastTitle: document.getElementById('forecastTitle'),
@@ -926,6 +1097,7 @@
         consentPrimary: '點一下才會詢問定位權限', consentSecondary: '座標只用來查詢當下的天氣', weatherViewLabel: '妳現在的天氣', locationName: '妳現在的位置',
         lookingSky: '正在看看天空⋯⋯', todayRange: '今日 {low}° — {high}°', feelsLike: '體感溫度', humidity: '濕度', rainChance: '降雨機率', windSpeed: '風速',
         detailsLabel: '目前天氣詳細資料', hourlyTitle: '接下來 12 小時', forecastTitle: '未來 7 天', refresh: '重新取得我的位置', refreshShort: '重新定位', changeCity: '切換城市', share: '分享', shared: '已複製', now: '現在', today: '今天', tomorrow: '明天', updated: '{time} 更新', fallbackSource: ' · 備用資料',
+        adviceKicker: 'TODAY\'S LITTLE PLAN', adviceTitle: '今天這樣穿', adviceSubtitle: '依照體感溫度、風雨與日夜溫差整理。', comfortLabel: '妳平常', comfortGroup: '體感偏好', comfortCold: '怕冷', comfortNormal: '剛好', comfortWarm: '怕熱', reminderTitle: '今天的小提醒', outfitListLabel: '穿搭清單',
         or: '或', cityPlaceholder: '搜尋城市，例如：恩施 / Taipei', search: '搜尋', searching: '搜尋中…', noCities: '找不到這個城市，換個名稱試試看。', citySearchFailed: '城市搜尋暫時沒有回應，請稍後再試。', loadingCity: '正在看看 {city} 的天空⋯⋯', cityWeatherUnavailable: '暫時無法取得這個城市的天氣，請稍後再試。',
         secureOnly: '瀏覽器只會在安全的 HTTPS 網頁提供定位。部署到 GitHub Pages 或 Vercel 後，再試一次就可以了。',
         locationUnavailable: '暫時無法取得妳的位置，請稍後再試一次。', permissionDenied: '妳似乎沒有開放定位權限。可以到瀏覽器的網站設定允許定位，再按一次試試看。',
@@ -942,6 +1114,7 @@
         consentPrimary: '点一下才会询问定位权限', consentSecondary: '坐标只用于查询当下的天气', weatherViewLabel: '你现在的天气', locationName: '你现在的位置',
         lookingSky: '正在看看天空⋯⋯', todayRange: '今日 {low}° — {high}°', feelsLike: '体感温度', humidity: '湿度', rainChance: '降雨概率', windSpeed: '风速',
         detailsLabel: '当前天气详细信息', hourlyTitle: '接下来 12 小时', forecastTitle: '未来 7 天', refresh: '重新获取我的位置', refreshShort: '重新定位', changeCity: '切换城市', share: '分享', shared: '已复制', now: '现在', today: '今天', tomorrow: '明天', updated: '{time} 更新', fallbackSource: ' · 备用数据',
+        adviceKicker: 'TODAY\'S LITTLE PLAN', adviceTitle: '今天这样穿', adviceSubtitle: '根据体感温度、风雨与昼夜温差整理。', comfortLabel: '你平常', comfortGroup: '体感偏好', comfortCold: '怕冷', comfortNormal: '刚好', comfortWarm: '怕热', reminderTitle: '今天的小提醒', outfitListLabel: '穿搭清单',
         or: '或', cityPlaceholder: '搜索城市，例如：恩施 / Taipei', search: '搜索', searching: '搜索中…', noCities: '找不到这个城市，换个名称试试看。', citySearchFailed: '城市搜索暂时没有回应，请稍后再试。', loadingCity: '正在看看 {city} 的天空⋯⋯', cityWeatherUnavailable: '暂时无法获取这个城市的天气，请稍后再试。',
         secureOnly: '浏览器只会在安全的 HTTPS 网页提供定位。部署到 GitHub Pages 或 Vercel 后，再试一次就可以了。',
         locationUnavailable: '暂时无法获取你的位置，请稍后再试一次。', permissionDenied: '你似乎没有开放定位权限。可以到浏览器的网站设置允许定位，再按一次试试看。',
@@ -958,6 +1131,7 @@
         consentPrimary: 'We’ll ask for location only after you tap', consentSecondary: 'Your coordinates are used only for this weather check', weatherViewLabel: 'Your current weather', locationName: 'Your current location',
         lookingSky: 'Looking at the sky…', todayRange: 'Today {low}° — {high}°', feelsLike: 'Feels like', humidity: 'Humidity', rainChance: 'Chance of rain', windSpeed: 'Wind',
         detailsLabel: 'Current weather details', hourlyTitle: 'Next 12 hours', forecastTitle: 'Next 7 days', refresh: 'Update my location', refreshShort: 'Relocate', changeCity: 'Change city', share: 'Share', shared: 'Copied', now: 'Now', today: 'Today', tomorrow: 'Tomorrow', updated: 'Updated {time}', fallbackSource: ' · backup data',
+        adviceKicker: 'TODAY\'S LITTLE PLAN', adviceTitle: 'What to wear today', adviceSubtitle: 'Based on feels-like temperature, rain, wind, and the day’s temperature swing.', comfortLabel: 'You usually', comfortGroup: 'Temperature preference', comfortCold: 'Run cold', comfortNormal: 'Neutral', comfortWarm: 'Run warm', reminderTitle: 'A few little reminders', outfitListLabel: 'Outfit checklist',
         or: 'or', cityPlaceholder: 'Search a city, e.g. Enshi or Taipei', search: 'Search', searching: 'Searching…', noCities: 'We couldn’t find that city. Try another name.', citySearchFailed: 'City search isn’t responding right now. Please try again.', loadingCity: 'Checking the sky over {city}…', cityWeatherUnavailable: 'We can’t get the weather for this city right now. Please try again.',
         secureOnly: 'Location is available only on secure HTTPS pages. Open the GitHub Pages or Vercel version and try again.',
         locationUnavailable: 'We can’t get your location right now. Please try again in a moment.', permissionDenied: 'Location permission is turned off. Allow it in your browser’s site settings, then try again.',
@@ -986,6 +1160,63 @@
       86: { icon: '🌨️', scene: 'cloud' }, 95: { icon: '⛈️', scene: 'rain' }, 96: { icon: '⛈️', scene: 'rain' }, 99: { icon: '⛈️', scene: 'rain' }
     };
 
+    const ADVICE_COPY = {
+      'zh-TW': {
+        profiles: {
+          veryCold: { headline: '保暖優先，別讓冷風鑽進去', description: '貼身保暖加上厚外套，包覆住頸部和腳踝會舒服很多。', items: [['🧣', '保暖內搭'], ['🧶', '厚針織'], ['🧥', '羽絨／厚外套'], ['👖', '保暖長褲'], ['🥾', '包覆短靴']] },
+          cold: { headline: '穿暖一點，記得留一層空氣', description: '長袖、針織和外套分層穿，進到室內也能輕鬆調整。', items: [['👕', '長袖上衣'], ['🧶', '針織衫'], ['🧥', '保暖外套'], ['👖', '長褲'], ['👟', '包鞋']] },
+          cool: { headline: '薄外套是今天的安全感', description: '早晚偏涼，選方便穿脫的層次，中午熱了也不會有負擔。', items: [['👕', '薄長袖'], ['🧥', '輕外套'], ['👖', '長褲'], ['👟', '運動鞋'], ['🧣', '薄圍巾可選']] },
+          mild: { headline: '舒適分層就好', description: '體感剛剛好，帶一件薄外套應付冷氣和早晚溫差。', items: [['👚', '短袖／襯衫'], ['🧥', '薄外套'], ['👖', '透氣下身'], ['👟', '輕便鞋'], ['👜', '輕便小包']] },
+          warm: { headline: '輕薄透氣，讓身體自在一點', description: '選吸濕排汗的材質，避免厚重層次，外出會更舒服。', items: [['👕', '透氣短袖'], ['🩳', '輕薄下身'], ['👟', '透氣鞋'], ['🧢', '遮陽帽'], ['🕶️', '太陽眼鏡']] },
+          hot: { headline: '今天要清爽，也要防曬', description: '寬鬆透氣最重要，盡量避開正午曝曬，別忘了補水。', items: [['👚', '寬鬆上衣'], ['🩳', '短褲／裙裝'], ['👡', '涼鞋'], ['👒', '遮陽帽'], ['🕶️', '太陽眼鏡']] }
+        },
+        rainShoes: ['🥾', '防潑水鞋'],
+        reminders: {
+          rain: ['☔', '稍後可能下雨，帶傘並選防潑水的鞋。'], uv: ['🧴', '紫外線偏強，出門前補防曬，帽子也帶上。'],
+          swing: ['🧥', '早晚溫差比較大，外套選方便穿脫的。'], wind: ['🍃', '風有點大，外套選防風款，帽子要戴穩。'],
+          cold: ['☕', '體感偏冷，護好頸部和手，暖飲也很加分。'], heat: ['💧', '今天偏熱，記得多喝水並找陰影休息。'],
+          humid: ['🌿', '濕度較高，透氣快乾的材質會比較舒服。'], fog: ['🌫️', '能見度可能較低，走路或騎車都慢一點。'],
+          late: ['🌙', '已經很晚了，可以順手準備明天的衣服再休息。'], pleasant: ['♡', '天氣相對舒服，照自己的節奏好好過今天。']
+        }
+      },
+      'zh-CN': {
+        profiles: {
+          veryCold: { headline: '保暖优先，别让冷风钻进去', description: '贴身保暖加上厚外套，包覆住颈部和脚踝会舒服很多。', items: [['🧣', '保暖内搭'], ['🧶', '厚针织'], ['🧥', '羽绒／厚外套'], ['👖', '保暖长裤'], ['🥾', '包覆短靴']] },
+          cold: { headline: '穿暖一点，记得留一层空气', description: '长袖、针织和外套分层穿，进到室内也能轻松调整。', items: [['👕', '长袖上衣'], ['🧶', '针织衫'], ['🧥', '保暖外套'], ['👖', '长裤'], ['👟', '包鞋']] },
+          cool: { headline: '薄外套是今天的安全感', description: '早晚偏凉，选择方便穿脱的层次，中午热了也不会有负担。', items: [['👕', '薄长袖'], ['🧥', '轻外套'], ['👖', '长裤'], ['👟', '运动鞋'], ['🧣', '薄围巾可选']] },
+          mild: { headline: '舒适分层就好', description: '体感刚刚好，带一件薄外套应付空调和早晚温差。', items: [['👚', '短袖／衬衫'], ['🧥', '薄外套'], ['👖', '透气下装'], ['👟', '轻便鞋'], ['👜', '轻便小包']] },
+          warm: { headline: '轻薄透气，让身体自在一点', description: '选择吸湿排汗的材质，避免厚重层次，外出会更舒服。', items: [['👕', '透气短袖'], ['🩳', '轻薄下装'], ['👟', '透气鞋'], ['🧢', '遮阳帽'], ['🕶️', '太阳眼镜']] },
+          hot: { headline: '今天要清爽，也要防晒', description: '宽松透气最重要，尽量避开正午暴晒，别忘了补水。', items: [['👚', '宽松上衣'], ['🩳', '短裤／裙装'], ['👡', '凉鞋'], ['👒', '遮阳帽'], ['🕶️', '太阳眼镜']] }
+        },
+        rainShoes: ['🥾', '防泼水鞋'],
+        reminders: {
+          rain: ['☔', '稍后可能下雨，带伞并选择防泼水的鞋。'], uv: ['🧴', '紫外线偏强，出门前补防晒，帽子也带上。'],
+          swing: ['🧥', '早晚温差比较大，外套选择方便穿脱的。'], wind: ['🍃', '风有点大，外套选择防风款，帽子要戴稳。'],
+          cold: ['☕', '体感偏冷，护好颈部和手，暖饮也很加分。'], heat: ['💧', '今天偏热，记得多喝水并找阴凉处休息。'],
+          humid: ['🌿', '湿度较高，透气快干的材质会比较舒服。'], fog: ['🌫️', '能见度可能较低，走路或骑车都慢一点。'],
+          late: ['🌙', '已经很晚了，可以顺手准备明天的衣服再休息。'], pleasant: ['♡', '天气相对舒服，按自己的节奏好好过今天。']
+        }
+      },
+      en: {
+        profiles: {
+          veryCold: { headline: 'Warmth first—keep the wind out', description: 'Start with a thermal layer and a proper coat; covering your neck and ankles makes a big difference.', items: [['🧣', 'Thermal base'], ['🧶', 'Heavy knit'], ['🧥', 'Puffer coat'], ['👖', 'Warm trousers'], ['🥾', 'Ankle boots']] },
+          cold: { headline: 'Layer up and keep a little warmth in', description: 'A long sleeve, knit, and coat are easy to adjust when you move indoors.', items: [['👕', 'Long sleeve'], ['🧶', 'Knit layer'], ['🧥', 'Warm coat'], ['👖', 'Long trousers'], ['👟', 'Closed shoes']] },
+          cool: { headline: 'A light jacket is today’s comfort layer', description: 'It may feel cool early and late, so choose layers that are easy to take off.', items: [['👕', 'Light long sleeve'], ['🧥', 'Light jacket'], ['👖', 'Long trousers'], ['👟', 'Sneakers'], ['🧣', 'Optional scarf']] },
+          mild: { headline: 'Easy, comfortable layers', description: 'The temperature is gentle; a light layer helps with air-conditioning and cooler evenings.', items: [['👚', 'Tee or shirt'], ['🧥', 'Light layer'], ['👖', 'Breathable bottom'], ['👟', 'Easy shoes'], ['👜', 'Light bag']] },
+          warm: { headline: 'Keep it light and breathable', description: 'Choose moisture-friendly fabrics and skip heavy layers for an easier day outside.', items: [['👕', 'Breathable tee'], ['🩳', 'Light bottoms'], ['👟', 'Breathable shoes'], ['🧢', 'Sun cap'], ['🕶️', 'Sunglasses']] },
+          hot: { headline: 'Stay airy—and remember sun protection', description: 'Loose, breathable pieces work best. Avoid long midday sun and keep water nearby.', items: [['👚', 'Airy top'], ['🩳', 'Shorts or skirt'], ['👡', 'Sandals'], ['👒', 'Sun hat'], ['🕶️', 'Sunglasses']] }
+        },
+        rainShoes: ['🥾', 'Water-resistant shoes'],
+        reminders: {
+          rain: ['☔', 'Rain is possible later—bring an umbrella and wear water-resistant shoes.'], uv: ['🧴', 'UV is strong. Apply sunscreen before heading out and bring a hat.'],
+          swing: ['🧥', 'There is a bigger temperature swing today, so wear an easy removable layer.'], wind: ['🍃', 'It is breezy. A wind-resistant layer will help, and keep hats secure.'],
+          cold: ['☕', 'It feels cold—keep your neck and hands warm; a warm drink helps too.'], heat: ['💧', 'It is hot today. Drink water regularly and take breaks in the shade.'],
+          humid: ['🌿', 'Humidity is high, so breathable, quick-drying fabric will feel better.'], fog: ['🌫️', 'Visibility may be lower. Take a little extra care walking, cycling, or driving.'],
+          late: ['🌙', 'It is getting late—set out tomorrow’s clothes, then get some rest.'], pleasant: ['♡', 'The weather looks comfortable. Take the day at your own gentle pace.']
+        }
+      }
+    };
+
     let currentLanguage = 'zh-TW';
     let loadingLocation = false;
     let hasAttemptedLocation = false;
@@ -993,6 +1224,12 @@
     let citySearchLoading = false;
     let citySearchState = { key: '', variables: {} };
     let lastWeather = null;
+    let comfortProfile = 'normal';
+
+    try {
+      const savedComfort = localStorage.getItem('weather-for-her-comfort');
+      if (['cold', 'normal', 'warm'].includes(savedComfort)) comfortProfile = savedComfort;
+    } catch (_) {}
 
     function t(key, variables = {}) {
       const template = TRANSLATIONS[currentLanguage]?.[key] ?? TRANSLATIONS['zh-TW'][key] ?? key;
@@ -1052,6 +1289,20 @@
       els.humidityLabel.textContent = t('humidity');
       els.rainChanceLabel.textContent = t('rainChance');
       els.windSpeedLabel.textContent = t('windSpeed');
+      els.adviceKicker.textContent = t('adviceKicker');
+      els.adviceTitle.textContent = t('adviceTitle');
+      els.adviceSubtitle.textContent = t('adviceSubtitle');
+      els.comfortLabel.textContent = t('comfortLabel');
+      els.comfortOptions.setAttribute('aria-label', t('comfortGroup'));
+      els.outfitItems.setAttribute('aria-label', t('outfitListLabel'));
+      els.reminderTitle.textContent = t('reminderTitle');
+      const comfortLabels = { cold: t('comfortCold'), normal: t('comfortNormal'), warm: t('comfortWarm') };
+      els.comfortButtons.forEach((button) => {
+        button.textContent = comfortLabels[button.dataset.comfort];
+        const isActive = button.dataset.comfort === comfortProfile;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
       els.hourlyTitle.textContent = t('hourlyTitle');
       els.forecastTitle.textContent = t('forecastTitle');
       els.changeCityText.textContent = t('changeCity');
@@ -1271,7 +1522,8 @@
           weather_code: days.map((day) => day.code),
           temperature_2m_max: days.map((day) => Math.max(...day.temperatures)),
           temperature_2m_min: days.map((day) => Math.min(...day.temperatures)),
-          precipitation_probability_max: days.map((day) => day.rainChance)
+          precipitation_probability_max: days.map((day) => day.rainChance),
+          uv_index_max: days.map(() => null)
         }
       };
     }
@@ -1282,7 +1534,7 @@
         longitude: String(longitude),
         current: 'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,is_day',
         hourly: 'temperature_2m,precipitation_probability,weather_code',
-        daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
+        daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max',
         timezone: 'auto',
         forecast_days: '7'
       });
@@ -1342,6 +1594,82 @@
       }).join('');
     }
 
+    function adviceBand(temperature) {
+      if (temperature <= 5) return 'veryCold';
+      if (temperature <= 12) return 'cold';
+      if (temperature <= 18) return 'cool';
+      if (temperature <= 24) return 'mild';
+      if (temperature <= 29) return 'warm';
+      return 'hot';
+    }
+
+    function adviceConditions(data) {
+      const hourlyStart = Math.max(0, findNearestHourlyIndex(data.hourly?.time, data.current.time));
+      const upcomingRain = (data.hourly?.precipitation_probability || [])
+        .slice(hourlyStart, hourlyStart + 12)
+        .reduce((maximum, value) => Math.max(maximum, Number(value) || 0), 0);
+      const high = Number(data.daily?.temperature_2m_max?.[0]);
+      const low = Number(data.daily?.temperature_2m_min?.[0]);
+      return {
+        apparent: Number(data.current.apparent_temperature ?? data.current.temperature_2m),
+        humidity: Number(data.current.relative_humidity_2m) || 0,
+        wind: Number(data.current.wind_speed_10m) || 0,
+        rain: upcomingRain,
+        uv: Number(data.daily?.uv_index_max?.[0]) || 0,
+        swing: Number.isFinite(high) && Number.isFinite(low) ? high - low : 0,
+        code: Number(data.current.weather_code),
+        high,
+        hour: new Date().getHours()
+      };
+    }
+
+    function renderAdvice(data) {
+      const copy = ADVICE_COPY[currentLanguage] || ADVICE_COPY['zh-TW'];
+      const conditions = adviceConditions(data);
+      const comfortShift = comfortProfile === 'cold' ? -3 : comfortProfile === 'warm' ? 3 : 0;
+      const profile = copy.profiles[adviceBand(conditions.apparent + comfortShift)];
+      const items = profile.items.map((item) => [...item]);
+
+      if (conditions.rain >= 45) {
+        const shoeIndex = items.findIndex(([icon]) => ['👟', '🥾', '👡'].includes(icon));
+        items[shoeIndex >= 0 ? shoeIndex : items.length - 1] = [...copy.rainShoes];
+      }
+
+      const reminderKeys = [];
+      if (conditions.rain >= 40) reminderKeys.push('rain');
+      if (conditions.uv >= 6) reminderKeys.push('uv');
+      if (conditions.wind >= 22) reminderKeys.push('wind');
+      if (conditions.swing >= 8) reminderKeys.push('swing');
+      if (conditions.apparent <= 10) reminderKeys.push('cold');
+      if (conditions.high >= 30 || conditions.apparent >= 30) reminderKeys.push('heat');
+      if (conditions.humidity >= 82 && conditions.rain < 40) reminderKeys.push('humid');
+      if ([45, 48].includes(conditions.code)) reminderKeys.push('fog');
+      if (conditions.hour >= 22 || conditions.hour < 5) reminderKeys.push('late');
+      if (!reminderKeys.length) reminderKeys.push('pleasant');
+
+      els.outfitHeadline.textContent = profile.headline;
+      els.outfitDescription.textContent = profile.description;
+      els.outfitItems.innerHTML = items.map(([icon, label]) => `
+        <div class="outfit-item"><span class="outfit-icon" aria-hidden="true">${icon}</span><span>${label}</span></div>
+      `).join('');
+      els.reminderList.innerHTML = reminderKeys.slice(0, 4).map((key) => {
+        const [icon, text] = copy.reminders[key];
+        return `<div class="reminder-item"><span class="reminder-icon" aria-hidden="true">${icon}</span><span>${text}</span></div>`;
+      }).join('');
+    }
+
+    function setComfortProfile(profile) {
+      if (!['cold', 'normal', 'warm'].includes(profile)) return;
+      comfortProfile = profile;
+      try { localStorage.setItem('weather-for-her-comfort', profile); } catch (_) {}
+      els.comfortButtons.forEach((button) => {
+        const isActive = button.dataset.comfort === comfortProfile;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+      if (lastWeather) renderAdvice(lastWeather.data);
+    }
+
     function renderWeather(data, latitude, longitude, shouldScroll = true, locationLabel = '') {
       const current = data.current;
       const daily = data.daily;
@@ -1364,6 +1692,7 @@
       els.rainChance.textContent = `${rounded(rainChance, 0)}%`;
       els.windSpeed.innerHTML = `${rounded(current.wind_speed_10m)} <small>km/h</small>`;
       els.loveNote.textContent = getLoveNote(data, Number(rainChance) || 0);
+      renderAdvice(data);
       renderHourlyForecast(data);
 
       els.forecastList.innerHTML = daily.time.map((date, index) => {
@@ -1541,6 +1870,9 @@
     els.citySearchForm.addEventListener('submit', searchCities);
     els.changeCityButton.addEventListener('click', showCitySearch);
     els.shareButton.addEventListener('click', sharePage);
+    els.comfortButtons.forEach((button) => {
+      button.addEventListener('click', () => setComfortProfile(button.dataset.comfort));
+    });
     els.refreshButton.addEventListener('click', () => {
       lastWeather = null;
       els.weatherView.classList.remove('is-visible');
