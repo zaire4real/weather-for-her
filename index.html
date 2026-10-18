@@ -275,6 +275,111 @@
       line-height: 1.6;
     }
 
+    .intro-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: min(100%, 420px);
+      margin: 26px auto 16px;
+      color: var(--quiet);
+      font-size: 11px;
+    }
+
+    .intro-divider::before,
+    .intro-divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: var(--line);
+    }
+
+    .city-search {
+      position: relative;
+      width: min(100%, 430px);
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .city-search-form {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 54px;
+      padding: 6px 7px 6px 17px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--glass);
+      box-shadow: 0 12px 30px rgba(55, 65, 100, 0.1);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+
+    .city-search-icon { width: 18px; height: 18px; flex: 0 0 auto; color: var(--quiet); }
+
+    .city-input {
+      min-width: 0;
+      flex: 1;
+      border: 0;
+      outline: 0;
+      color: var(--ink);
+      background: transparent;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    .city-input::placeholder { color: var(--quiet); }
+
+    .city-search-button {
+      min-width: 72px;
+      height: 40px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 13px;
+      color: #fff;
+      background: linear-gradient(145deg, #727caf, #57638f);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .city-search-button:disabled { opacity: .65; cursor: wait; }
+
+    .city-results {
+      display: none;
+      margin-top: 8px;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--glass-strong);
+      box-shadow: 0 18px 45px rgba(55, 65, 100, 0.15);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    .city-results.is-visible { display: grid; gap: 3px; animation: fade-in 220ms ease both; }
+
+    .city-result {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 13px;
+      border: 0;
+      border-radius: 13px;
+      color: var(--ink);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .city-result:hover,
+    .city-result:focus-visible { background: rgba(255, 255, 255, .34); outline: 0; }
+    .city-result-name { font-size: 14px; font-weight: 680; }
+    .city-result-detail { color: var(--quiet); font-size: 11px; }
+    .city-search-message { margin: 9px 5px 0; color: var(--quiet); font-size: 12px; text-align: center; }
+    .city-search-message:empty { display: none; }
+
     .status {
       display: none;
       width: min(100%, 520px);
@@ -449,6 +554,46 @@
       border-radius: 32px;
     }
 
+    .hourly-card {
+      margin-bottom: 20px;
+      padding: 24px 20px 20px;
+      border-radius: 32px;
+      overflow: hidden;
+    }
+
+    .hourly-list {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 2px 7px 8px;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+      overscroll-behavior-inline: contain;
+    }
+
+    .hourly-list::-webkit-scrollbar { display: none; }
+
+    .hourly-item {
+      display: grid;
+      flex: 0 0 84px;
+      min-height: 128px;
+      place-items: center;
+      align-content: center;
+      gap: 9px;
+      padding: 12px 8px;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 20px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .16);
+      scroll-snap-align: start;
+    }
+
+    .hourly-item:first-child { color: var(--ink); background: rgba(255, 255, 255, .34); }
+    .hourly-time { font-size: 12px; font-weight: 680; }
+    .hourly-icon { font-size: 25px; }
+    .hourly-temp { color: var(--ink); font-size: 18px; font-weight: 680; }
+    .hourly-rain { font-size: 10px; }
+
     .section-heading {
       display: flex;
       align-items: center;
@@ -487,13 +632,21 @@
     .forecast-low { color: var(--quiet); }
 
     .weather-actions {
-      display: flex;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      width: min(100%, 560px);
+      margin: 0 auto;
       padding: 22px 0 6px;
     }
 
-    .refresh-button {
-      padding: 10px 15px;
+    .action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 46px;
+      padding: 9px 12px;
       border: 1px solid var(--line);
       border-radius: 14px;
       color: var(--muted);
@@ -503,7 +656,8 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
-    .refresh-button:hover { color: var(--ink); background: var(--glass-strong); }
+    .action-button svg { width: 16px; height: 16px; flex: 0 0 auto; }
+    .action-button:hover { color: var(--ink); background: var(--glass-strong); }
 
     footer {
       padding: 38px 0 12px;
@@ -537,20 +691,41 @@
     @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 720px) {
-      .page-shell { padding-right: 14px; padding-left: 14px; }
-      .topbar { margin-bottom: 16px; }
+      .page-shell { padding: max(16px, env(safe-area-inset-top)) 12px var(--safe-bottom); }
+      .topbar { margin-bottom: 10px; padding: 0 3px; }
       .privacy-note span { display: none; }
       .top-actions { gap: 8px; }
-      .intro-inner { padding-bottom: 16vh; }
-      .weather-hero { grid-template-columns: 1fr; }
-      .main-card { min-height: 420px; border-radius: 30px; }
-      .metrics-card { border-radius: 30px; }
-      .metric:nth-child(1) { border-radius: 29px 0 0; }
-      .metric:nth-child(2) { border-radius: 0 29px 0 0; }
-      .metric:nth-child(3) { border-radius: 0 0 0 29px; }
-      .metric:nth-child(4) { border-radius: 0 0 29px; }
-      .forecast-card { border-radius: 28px; padding-right: 12px; padding-left: 12px; }
-      .forecast-row { grid-template-columns: 60px 36px minmax(74px, 1fr) 68px; padding: 0 9px; }
+      .intro { min-height: calc(100svh - 84px); align-items: start; padding-top: clamp(54px, 11vh, 100px); }
+      .intro-inner { padding-bottom: 7vh; }
+      .eyebrow { margin-bottom: 13px; }
+      h1 { font-size: clamp(44px, 13.5vw, 62px); }
+      html[lang="en"] h1 { font-size: clamp(40px, 11.5vw, 54px); }
+      .subtitle { margin-top: 18px; font-size: 16px; line-height: 1.65; }
+      .locate-button { width: min(100%, 330px); min-height: 54px; margin-top: 28px; }
+      .consent-copy { margin-top: 12px; }
+      .intro-divider { margin-top: 20px; }
+      .weather-view { padding-top: 4px; }
+      .weather-hero { grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
+      .main-card { min-height: 0; padding: 22px; border-radius: 28px; }
+      .main-card::after { width: 210px; height: 210px; }
+      .location-line { font-size: 12px; }
+      .temperature-row { margin-top: 22px; }
+      .temperature { font-size: 94px; }
+      .condition { margin-top: 18px; font-size: 26px; }
+      .today-range { margin-top: 6px; font-size: 14px; }
+      .love-note { position: relative; inset: auto; margin-top: 24px; padding-top: 17px; font-size: 14px; line-height: 1.65; }
+      .metrics-card { display: flex; gap: 9px; padding: 0 0 7px; border: 0; border-radius: 0; background: transparent; box-shadow: none; overflow-x: auto; scrollbar-width: none; backdrop-filter: none; -webkit-backdrop-filter: none; scroll-snap-type: x proximity; }
+      .metrics-card::-webkit-scrollbar { display: none; }
+      .metric { flex: 0 0 126px; min-height: 98px; padding: 16px; border: 1px solid var(--line); border-radius: 22px !important; background: var(--glass); scroll-snap-align: start; }
+      .metric-value { margin-top: 11px; font-size: 25px; }
+      .hourly-card { margin-bottom: 12px; padding: 20px 10px 13px; border-radius: 26px; }
+      .hourly-item { flex-basis: 76px; min-height: 118px; border-radius: 18px; }
+      .forecast-card { border-radius: 26px; padding: 20px 10px 12px; }
+      .section-heading { margin: 0 10px 13px; }
+      .forecast-row { grid-template-columns: 58px 34px minmax(72px, 1fr) 68px; min-height: 58px; padding: 0 9px; }
+      .weather-actions { gap: 7px; padding-top: 14px; }
+      .action-button { min-height: 44px; padding: 8px 7px; font-size: 12px; }
+      footer { padding-top: 28px; }
     }
 
     @media (max-width: 390px) {
@@ -607,6 +782,19 @@
           <span>查看我現在的天氣</span>
         </button>
         <p class="consent-copy"><span id="consentPrimary">點一下才會詢問定位權限</span><br><span id="consentSecondary">座標只用來查詢當下的天氣</span></p>
+        <div class="intro-divider"><span id="orLabel">或</span></div>
+        <div class="city-search">
+          <form class="city-search-form" id="citySearchForm" role="search">
+            <svg class="city-search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/>
+              <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <input class="city-input" id="cityInput" type="search" autocomplete="off" enterkeyhint="search" />
+            <button class="city-search-button" id="citySearchButton" type="submit">搜尋</button>
+          </form>
+          <div class="city-results" id="cityResults" role="listbox"></div>
+          <p class="city-search-message" id="citySearchMessage" aria-live="polite"></p>
+        </div>
         <div class="status" id="status" role="status" aria-live="polite"></div>
       </div>
     </section>
@@ -644,6 +832,13 @@
         </article>
       </div>
 
+      <article class="glass-card hourly-card">
+        <div class="section-heading">
+          <h2 id="hourlyTitle">逐小時天氣</h2>
+        </div>
+        <div class="hourly-list" id="hourlyList"></div>
+      </article>
+
       <article class="glass-card forecast-card">
         <div class="section-heading">
           <h2 id="forecastTitle">未來 7 天</h2>
@@ -653,7 +848,18 @@
       </article>
 
       <div class="weather-actions">
-        <button class="refresh-button" id="refreshButton" type="button">重新取得我的位置</button>
+        <button class="action-button" id="changeCityButton" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span id="changeCityText">切換城市</span>
+        </button>
+        <button class="action-button" id="refreshButton" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 5v6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="refreshText">重新定位</span>
+        </button>
+        <button class="action-button" id="shareButton" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V3m0 0L7.5 7.5M12 3l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12v7h14v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="shareText">分享</span>
+        </button>
       </div>
     </section>
 
@@ -669,6 +875,11 @@
       weatherView: document.getElementById('weatherView'),
       locateButton: document.getElementById('locateButton'),
       refreshButton: document.getElementById('refreshButton'),
+      refreshText: document.getElementById('refreshText'),
+      changeCityButton: document.getElementById('changeCityButton'),
+      changeCityText: document.getElementById('changeCityText'),
+      shareButton: document.getElementById('shareButton'),
+      shareText: document.getElementById('shareText'),
       status: document.getElementById('status'),
       brand: document.getElementById('brand'),
       privacyNote: document.getElementById('privacyNote'),
@@ -680,6 +891,12 @@
       subtitle: document.getElementById('subtitle'),
       consentPrimary: document.getElementById('consentPrimary'),
       consentSecondary: document.getElementById('consentSecondary'),
+      orLabel: document.getElementById('orLabel'),
+      citySearchForm: document.getElementById('citySearchForm'),
+      cityInput: document.getElementById('cityInput'),
+      citySearchButton: document.getElementById('citySearchButton'),
+      cityResults: document.getElementById('cityResults'),
+      citySearchMessage: document.getElementById('citySearchMessage'),
       locationName: document.getElementById('locationName'),
       currentTemp: document.getElementById('currentTemp'),
       weatherSymbol: document.getElementById('weatherSymbol'),
@@ -695,6 +912,8 @@
       rainChance: document.getElementById('rainChance'),
       windSpeed: document.getElementById('windSpeed'),
       loveNote: document.getElementById('loveNote'),
+      hourlyTitle: document.getElementById('hourlyTitle'),
+      hourlyList: document.getElementById('hourlyList'),
       forecastTitle: document.getElementById('forecastTitle'),
       forecastList: document.getElementById('forecastList'),
       updatedAt: document.getElementById('updatedAt')
@@ -706,7 +925,8 @@
         eyebrow: 'Just for you ♡', subtitle: '不管妳在哪，我都想知道妳那裡冷不冷。', locate: '查看我現在的天氣', retry: '再試一次', locating: '正在找妳的位置⋯⋯',
         consentPrimary: '點一下才會詢問定位權限', consentSecondary: '座標只用來查詢當下的天氣', weatherViewLabel: '妳現在的天氣', locationName: '妳現在的位置',
         lookingSky: '正在看看天空⋯⋯', todayRange: '今日 {low}° — {high}°', feelsLike: '體感溫度', humidity: '濕度', rainChance: '降雨機率', windSpeed: '風速',
-        detailsLabel: '目前天氣詳細資料', forecastTitle: '未來 7 天', refresh: '重新取得我的位置', today: '今天', tomorrow: '明天', updated: '{time} 更新', fallbackSource: ' · 備用資料',
+        detailsLabel: '目前天氣詳細資料', hourlyTitle: '接下來 12 小時', forecastTitle: '未來 7 天', refresh: '重新取得我的位置', refreshShort: '重新定位', changeCity: '切換城市', share: '分享', shared: '已複製', now: '現在', today: '今天', tomorrow: '明天', updated: '{time} 更新', fallbackSource: ' · 備用資料',
+        or: '或', cityPlaceholder: '搜尋城市，例如：恩施 / Taipei', search: '搜尋', searching: '搜尋中…', noCities: '找不到這個城市，換個名稱試試看。', citySearchFailed: '城市搜尋暫時沒有回應，請稍後再試。', loadingCity: '正在看看 {city} 的天空⋯⋯', cityWeatherUnavailable: '暫時無法取得這個城市的天氣，請稍後再試。',
         secureOnly: '瀏覽器只會在安全的 HTTPS 網頁提供定位。部署到 GitHub Pages 或 Vercel 後，再試一次就可以了。',
         locationUnavailable: '暫時無法取得妳的位置，請稍後再試一次。', permissionDenied: '妳似乎沒有開放定位權限。可以到瀏覽器的網站設定允許定位，再按一次試試看。',
         positionUnavailable: '目前找不到妳的位置。請確認手機的定位服務已開啟，再試一次。', positionTimeout: '定位等得有點久。換個網路環境，或稍後再試一次。',
@@ -721,7 +941,8 @@
         eyebrow: 'Just for you ♡', subtitle: '不管你在哪，我都想知道你那里冷不冷。', locate: '查看我现在的天气', retry: '再试一次', locating: '正在找你的位置⋯⋯',
         consentPrimary: '点一下才会询问定位权限', consentSecondary: '坐标只用于查询当下的天气', weatherViewLabel: '你现在的天气', locationName: '你现在的位置',
         lookingSky: '正在看看天空⋯⋯', todayRange: '今日 {low}° — {high}°', feelsLike: '体感温度', humidity: '湿度', rainChance: '降雨概率', windSpeed: '风速',
-        detailsLabel: '当前天气详细信息', forecastTitle: '未来 7 天', refresh: '重新获取我的位置', today: '今天', tomorrow: '明天', updated: '{time} 更新', fallbackSource: ' · 备用数据',
+        detailsLabel: '当前天气详细信息', hourlyTitle: '接下来 12 小时', forecastTitle: '未来 7 天', refresh: '重新获取我的位置', refreshShort: '重新定位', changeCity: '切换城市', share: '分享', shared: '已复制', now: '现在', today: '今天', tomorrow: '明天', updated: '{time} 更新', fallbackSource: ' · 备用数据',
+        or: '或', cityPlaceholder: '搜索城市，例如：恩施 / Taipei', search: '搜索', searching: '搜索中…', noCities: '找不到这个城市，换个名称试试看。', citySearchFailed: '城市搜索暂时没有回应，请稍后再试。', loadingCity: '正在看看 {city} 的天空⋯⋯', cityWeatherUnavailable: '暂时无法获取这个城市的天气，请稍后再试。',
         secureOnly: '浏览器只会在安全的 HTTPS 网页提供定位。部署到 GitHub Pages 或 Vercel 后，再试一次就可以了。',
         locationUnavailable: '暂时无法获取你的位置，请稍后再试一次。', permissionDenied: '你似乎没有开放定位权限。可以到浏览器的网站设置允许定位，再按一次试试看。',
         positionUnavailable: '目前找不到你的位置。请确认手机的定位服务已开启，再试一次。', positionTimeout: '定位等得有点久。换个网络环境，或稍后再试一次。',
@@ -736,7 +957,8 @@
         eyebrow: 'Just for you ♡', subtitle: 'Wherever you are, I always want to know if you’re warm enough.', locate: 'Check the weather here', retry: 'Try again', locating: 'Finding your location…',
         consentPrimary: 'We’ll ask for location only after you tap', consentSecondary: 'Your coordinates are used only for this weather check', weatherViewLabel: 'Your current weather', locationName: 'Your current location',
         lookingSky: 'Looking at the sky…', todayRange: 'Today {low}° — {high}°', feelsLike: 'Feels like', humidity: 'Humidity', rainChance: 'Chance of rain', windSpeed: 'Wind',
-        detailsLabel: 'Current weather details', forecastTitle: 'Next 7 days', refresh: 'Update my location', today: 'Today', tomorrow: 'Tomorrow', updated: 'Updated {time}', fallbackSource: ' · backup data',
+        detailsLabel: 'Current weather details', hourlyTitle: 'Next 12 hours', forecastTitle: 'Next 7 days', refresh: 'Update my location', refreshShort: 'Relocate', changeCity: 'Change city', share: 'Share', shared: 'Copied', now: 'Now', today: 'Today', tomorrow: 'Tomorrow', updated: 'Updated {time}', fallbackSource: ' · backup data',
+        or: 'or', cityPlaceholder: 'Search a city, e.g. Enshi or Taipei', search: 'Search', searching: 'Searching…', noCities: 'We couldn’t find that city. Try another name.', citySearchFailed: 'City search isn’t responding right now. Please try again.', loadingCity: 'Checking the sky over {city}…', cityWeatherUnavailable: 'We can’t get the weather for this city right now. Please try again.',
         secureOnly: 'Location is available only on secure HTTPS pages. Open the GitHub Pages or Vercel version and try again.',
         locationUnavailable: 'We can’t get your location right now. Please try again in a moment.', permissionDenied: 'Location permission is turned off. Allow it in your browser’s site settings, then try again.',
         positionUnavailable: 'We can’t find your location. Make sure location services are on, then try again.', positionTimeout: 'Location is taking a little too long. Try another network or try again shortly.',
@@ -768,6 +990,8 @@
     let loadingLocation = false;
     let hasAttemptedLocation = false;
     let activeStatus = { key: '', type: '', variables: {} };
+    let citySearchLoading = false;
+    let citySearchState = { key: '', variables: {} };
     let lastWeather = null;
 
     function t(key, variables = {}) {
@@ -820,14 +1044,20 @@
       els.subtitle.textContent = t('subtitle');
       els.consentPrimary.textContent = t('consentPrimary');
       els.consentSecondary.textContent = t('consentSecondary');
+      els.orLabel.textContent = t('or');
+      els.cityInput.placeholder = t('cityPlaceholder');
       els.weatherView.setAttribute('aria-label', t('weatherViewLabel'));
       els.metricsCard.setAttribute('aria-label', t('detailsLabel'));
       els.feelsLikeLabel.textContent = t('feelsLike');
       els.humidityLabel.textContent = t('humidity');
       els.rainChanceLabel.textContent = t('rainChance');
       els.windSpeedLabel.textContent = t('windSpeed');
+      els.hourlyTitle.textContent = t('hourlyTitle');
       els.forecastTitle.textContent = t('forecastTitle');
-      els.refreshButton.textContent = t('refresh');
+      els.changeCityText.textContent = t('changeCity');
+      els.refreshText.textContent = t('refreshShort');
+      els.shareText.textContent = t('share');
+      updateCitySearchButton();
       els.languageButtons.forEach((button) => {
         const isActive = button.dataset.language === currentLanguage;
         button.classList.toggle('is-active', isActive);
@@ -835,8 +1065,9 @@
       });
       updateLocateButton();
       if (activeStatus.key) showStatus(activeStatus.key, activeStatus.type, activeStatus.variables);
+      if (citySearchState.key) showCitySearchMessage(citySearchState.key, citySearchState.variables);
       if (lastWeather) {
-        renderWeather(lastWeather.data, lastWeather.latitude, lastWeather.longitude, false);
+        renderWeather(lastWeather.data, lastWeather.latitude, lastWeather.longitude, false, lastWeather.locationLabel);
       } else {
         els.locationName.textContent = t('locationName');
         els.condition.textContent = t('lookingSky');
@@ -862,6 +1093,16 @@
     function showStatus(key = '', type = '', variables = {}) {
       activeStatus = { key, type, variables };
       setStatus(key ? t(key, variables) : '', type);
+    }
+
+    function updateCitySearchButton() {
+      els.citySearchButton.disabled = citySearchLoading;
+      els.citySearchButton.textContent = t(citySearchLoading ? 'searching' : 'search');
+    }
+
+    function showCitySearchMessage(key = '', variables = {}) {
+      citySearchState = { key, variables };
+      els.citySearchMessage.textContent = key ? t(key, variables) : '';
     }
 
     function setLoading(isLoading) {
@@ -1021,7 +1262,9 @@
         },
         hourly: {
           time: rows.map((row) => row.time),
-          precipitation_probability: rows.map((row) => row.rainChance)
+          precipitation_probability: rows.map((row) => row.rainChance),
+          temperature_2m: rows.map((row) => row.temperature),
+          weather_code: rows.map((row) => row.code)
         },
         daily: {
           time: days.map((day) => day.date),
@@ -1038,7 +1281,7 @@
         latitude: String(latitude),
         longitude: String(longitude),
         current: 'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,is_day',
-        hourly: 'precipitation_probability',
+        hourly: 'temperature_2m,precipitation_probability,weather_code',
         daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
         timezone: 'auto',
         forecast_days: '7'
@@ -1071,7 +1314,35 @@
       }
     }
 
-    function renderWeather(data, latitude, longitude, shouldScroll = true) {
+    function hourLabel(isoTime, index) {
+      if (index === 0) return t('now');
+      const locale = currentLanguage === 'zh-CN' ? 'zh-CN' : currentLanguage === 'en' ? 'en-US' : 'zh-TW';
+      return new Intl.DateTimeFormat(locale, { hour: 'numeric' }).format(new Date(isoTime));
+    }
+
+    function renderHourlyForecast(data) {
+      const times = data.hourly?.time || [];
+      const temperatures = data.hourly?.temperature_2m || [];
+      const codes = data.hourly?.weather_code || [];
+      const rainChances = data.hourly?.precipitation_probability || [];
+      const start = Math.max(0, findNearestHourlyIndex(times, data.current.time));
+      const end = Math.min(times.length, start + 12);
+      els.hourlyList.innerHTML = times.slice(start, end).map((time, offset) => {
+        const index = start + offset;
+        const info = weatherInfo(codes[index]);
+        const hour = new Date(time).getHours();
+        const icon = hour < 6 || hour >= 19 ? (codes[index] <= 1 ? '🌙' : info.icon) : info.icon;
+        return `
+          <div class="hourly-item">
+            <span class="hourly-time">${hourLabel(time, offset)}</span>
+            <span class="hourly-icon" aria-label="${info.label}" title="${info.label}">${icon}</span>
+            <span class="hourly-temp">${rounded(temperatures[index])}°</span>
+            <span class="hourly-rain">💧 ${rounded(rainChances[index], 0)}%</span>
+          </div>`;
+      }).join('');
+    }
+
+    function renderWeather(data, latitude, longitude, shouldScroll = true, locationLabel = '') {
       const current = data.current;
       const daily = data.daily;
       const info = weatherInfo(current.weather_code);
@@ -1079,11 +1350,11 @@
       const rainChance = hourlyIndex >= 0 ? data.hourly.precipitation_probability[hourlyIndex] : daily.precipitation_probability_max[0];
       const isNight = current.is_day === 0;
 
-      lastWeather = { data, latitude, longitude };
+      lastWeather = { data, latitude, longitude, locationLabel };
       setLoading(false);
       showStatus('');
       document.body.dataset.scene = isNight ? 'night' : info.scene;
-      els.locationName.textContent = `${t('locationName')} · ${latitude.toFixed(2)}°, ${longitude.toFixed(2)}°`;
+      els.locationName.textContent = locationLabel || t('locationName');
       els.currentTemp.textContent = rounded(current.temperature_2m);
       els.weatherSymbol.textContent = isNight && current.weather_code <= 1 ? '🌙' : info.icon;
       els.condition.textContent = info.label;
@@ -1093,6 +1364,7 @@
       els.rainChance.textContent = `${rounded(rainChance, 0)}%`;
       els.windSpeed.innerHTML = `${rounded(current.wind_speed_10m)} <small>km/h</small>`;
       els.loveNote.textContent = getLoveNote(data, Number(rainChance) || 0);
+      renderHourlyForecast(data);
 
       els.forecastList.innerHTML = daily.time.map((date, index) => {
         const dayInfo = weatherInfo(daily.weather_code[index]);
@@ -1113,6 +1385,124 @@
       els.intro.style.display = 'none';
       els.weatherView.classList.add('is-visible');
       if (shouldScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function cityLabel(result) {
+      const region = result.admin1 || result.country || '';
+      return region && region !== result.name ? `${result.name} · ${region}` : result.name;
+    }
+
+    function renderCityResults(results) {
+      els.cityResults.replaceChildren();
+      if (!results.length) {
+        els.cityResults.classList.remove('is-visible');
+        showCitySearchMessage('noCities');
+        return;
+      }
+
+      results.forEach((result) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'city-result';
+        button.setAttribute('role', 'option');
+
+        const text = document.createElement('span');
+        const name = document.createElement('span');
+        const detail = document.createElement('span');
+        name.className = 'city-result-name';
+        detail.className = 'city-result-detail';
+        name.textContent = result.name;
+        detail.textContent = [result.admin1, result.country].filter(Boolean).join(' · ');
+        text.append(name, document.createElement('br'), detail);
+
+        const arrow = document.createElement('span');
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '›';
+        button.append(text, arrow);
+        button.addEventListener('click', () => selectCity(result));
+        els.cityResults.append(button);
+      });
+
+      showCitySearchMessage('');
+      els.cityResults.classList.add('is-visible');
+    }
+
+    async function searchCities(event) {
+      event.preventDefault();
+      const query = els.cityInput.value.trim();
+      if (query.length < 2) {
+        showCitySearchMessage('noCities');
+        return;
+      }
+
+      citySearchLoading = true;
+      updateCitySearchButton();
+      showCitySearchMessage('');
+      els.cityResults.classList.remove('is-visible');
+      try {
+        const params = new URLSearchParams({
+          name: query,
+          count: '6',
+          language: currentLanguage === 'en' ? 'en' : 'zh',
+          format: 'json'
+        });
+        const data = await fetchJson(`https://geocoding-api.open-meteo.com/v1/search?${params}`);
+        renderCityResults(data.results || []);
+      } catch (error) {
+        console.error(error);
+        showCitySearchMessage('citySearchFailed');
+      } finally {
+        citySearchLoading = false;
+        updateCitySearchButton();
+      }
+    }
+
+    async function selectCity(result) {
+      const label = cityLabel(result);
+      els.cityInput.value = result.name;
+      els.cityResults.classList.remove('is-visible');
+      citySearchLoading = true;
+      updateCitySearchButton();
+      showCitySearchMessage('loadingCity', { city: result.name });
+      try {
+        const data = await fetchWeather(result.latitude, result.longitude);
+        showCitySearchMessage('');
+        renderWeather(data, result.latitude, result.longitude, true, label);
+      } catch (error) {
+        console.error(error);
+        showStatus('');
+        showCitySearchMessage('cityWeatherUnavailable');
+      } finally {
+        citySearchLoading = false;
+        updateCitySearchButton();
+      }
+    }
+
+    function showCitySearch() {
+      lastWeather = null;
+      els.weatherView.classList.remove('is-visible');
+      els.intro.style.display = 'grid';
+      document.body.removeAttribute('data-scene');
+      showStatus('');
+      showCitySearchMessage('');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => els.cityInput.focus(), 350);
+    }
+
+    async function sharePage() {
+      const url = document.querySelector('link[rel="canonical"]')?.href || location.href.split('?')[0];
+      const shareData = { title: t('title'), text: t('subtitle'), url };
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+          return;
+        }
+        await navigator.clipboard.writeText(url);
+        els.shareText.textContent = t('shared');
+        setTimeout(() => { els.shareText.textContent = t('share'); }, 1800);
+      } catch (error) {
+        if (error?.name !== 'AbortError') console.error(error);
+      }
     }
 
     function requestWeather() {
@@ -1148,7 +1538,11 @@
     }
 
     els.locateButton.addEventListener('click', requestWeather);
+    els.citySearchForm.addEventListener('submit', searchCities);
+    els.changeCityButton.addEventListener('click', showCitySearch);
+    els.shareButton.addEventListener('click', sharePage);
     els.refreshButton.addEventListener('click', () => {
+      lastWeather = null;
       els.weatherView.classList.remove('is-visible');
       els.intro.style.display = 'grid';
       requestWeather();
